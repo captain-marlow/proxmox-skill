@@ -5,9 +5,10 @@
 
 set -euo pipefail
 
-# Load credentials
-if [[ -f ~/.proxmox-credentials ]]; then
-    source ~/.proxmox-credentials
+# Load credentials (env vars win; else source $PROXMOX_CRED_FILE, default ~/.proxmox-credentials)
+CRED_FILE="${PROXMOX_CRED_FILE:-$HOME/.proxmox-credentials}"
+if [[ -f "$CRED_FILE" ]]; then
+    source "$CRED_FILE"
 fi
 
 : "${PROXMOX_HOST:?Set PROXMOX_HOST}"
@@ -176,7 +177,7 @@ Environment:
   PROXMOX_TOKEN_ID     user@pam!tokenname
   PROXMOX_TOKEN_SECRET your-token-secret
 
-Or create ~/.proxmox-credentials with these variables.
+Or create $PROXMOX_CRED_FILE (default ~/.proxmox-credentials) with these variables.
 EOF
         ;;
 esac

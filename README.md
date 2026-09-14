@@ -1,6 +1,8 @@
-# Proxmox Ops
+# Proxmox Ops (captain-marlow fork)
 
 Battle-tested Proxmox VE management toolkit — helper scripts, API patterns, and operational knowledge built from running a 46-guest cluster daily.
+
+Fork of [eddygk/proxmox-ops-skill](https://github.com/eddygk/proxmox-ops-skill) (MIT). Maintained by [captain-marlow](https://github.com/captain-marlow) with configurable credential path and fleet-wide `~/.openclaw/secrets/` convention support.
 
 Works standalone, or as a knowledge base for AI coding agents (Claude Code, Claude Desktop, OpenClaw, Cursor, etc).
 
@@ -29,6 +31,14 @@ PROXMOX_TOKEN_SECRET=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 EOF
 chmod 600 ~/.proxmox-credentials
 ```
+
+**Custom credential path** (e.g. fleet/agent convention `~/.openclaw/secrets/proxmox-<agent>.env`):
+
+```bash
+export PROXMOX_CRED_FILE=~/.openclaw/secrets/proxmox-myagent.env
+```
+
+`pve.sh` sources `$PROXMOX_CRED_FILE` at startup (default: `~/.proxmox-credentials`). Direct env var exports (`PROXMOX_HOST`, `PROXMOX_TOKEN_ID`, `PROXMOX_TOKEN_SECRET`) take precedence over the file in either case.
 
 ## Quick Start
 
@@ -94,7 +104,7 @@ Drop `SKILL.md` into your project's context directory or reference it in whateve
 
 ## Credits
 
-The `scripts/pve.sh` helper script originates from [weird-aftertaste/proxmox](https://clawhub.com/skills/proxmox) on ClawHub and is used with appreciation. This skill extends it with additional operational patterns, provisioning workflows, disk resize guidance, and guest agent support.
+This is a maintained fork of [eddygk/proxmox-ops-skill](https://github.com/eddygk/proxmox-ops-skill). The original `scripts/pve.sh` helper script originates from [weird-aftertaste/proxmox](https://clawhub.com/skills/proxmox) on ClawHub and is used with appreciation. The upstream skill extends it with additional operational patterns, provisioning workflows, disk resize guidance, and guest agent support.
 
 Additional reference material drawn from [mSarheed/proxmox-full](https://clawhub.com/skills/proxmox-full).
 
